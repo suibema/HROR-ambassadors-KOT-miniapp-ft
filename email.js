@@ -47,7 +47,7 @@ const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
     const existsQ = await supabase
       .from(TABLE)
       .select('id', { count: 'exact', head: true })
-      .eq('tg-id', tgId); // имя колонки ровно как в таблице
+      .eq('tg-id', tgId);
 
     if (existsQ.error) throw existsQ.error;
 
@@ -56,13 +56,11 @@ const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
       return;
     }
 
-    // 2) Уже есть результат КОТ? (Результат КОТ != -1)
-    // ВАЖНО: если колонка числовая — передаём число -1; если текстовая — строку '-1'
     const kotResultQ = await supabase
       .from(TABLE)
       .select('id', { count: 'exact', head: true })
       .eq('tg-id', tgId)
-      .neq('Результат КОТ', -1);
+      .neq('Результат теста', -1);
 
     if (kotResultQ.error) throw kotResultQ.error;
 
@@ -71,7 +69,6 @@ const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
       return;
     }
 
-    // 3) Пропускаем на тест (логичнее хранить id отдельно)
     localStorage.setItem('test_tg_id', String(tgId));
     window.location.href = 'test.html';
   } catch (err) {
