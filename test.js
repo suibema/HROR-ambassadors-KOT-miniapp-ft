@@ -117,7 +117,7 @@ async function submitForm() {
     resultEl.textContent = "Спасибо, твой тест успешно принят!";
     errorEl.textContent = "";
 
-    window.location.href = "bye copy.html";
+    window.location.href = "bye.html";
   } catch (err) {
     console.error("Submission error:", err);
     errorEl.textContent = "Ошибка отправки теста";
@@ -137,3 +137,4 @@ form.addEventListener("submit", (e) => {
 
 // Initialize
 restoreForm();
+
